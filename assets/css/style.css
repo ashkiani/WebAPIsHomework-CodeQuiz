@@ -1,0 +1,7 @@
+h1,p,footer{
+    text-align: center;
+}
+footer{
+    background-color: teal;
+    color: white;
+}
