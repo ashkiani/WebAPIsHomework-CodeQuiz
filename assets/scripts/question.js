@@ -27,18 +27,42 @@ var btn = document.querySelector(".btn");
 var timerPreText ="Timer: ";
 var bTestInProgress = false;
 var timerInterval;
-var secondsLeft = 15;
-var qIndex =0;
+const quizTime = 15;
+var secondsLeft = quizTime;
 
+var qIndex =0;
+var correctAnswersCount=0;
+function resetTime(){
+  secondsLeft=quizTime;
+}
 function endTest(){
+  var remaining = secondsLeft;
   clearInterval(timerInterval);
+  
   timeEl.textContent = "Time over!";
   bTestInProgress=false;
   deleteExistingChoices();
   btn.textContent="Start";
-  secondsLeft=15;
+  resetTime();
 
   //ask user's name and record the score
+
+  var init = prompt("Enter your initial:");
+  if (init!==null){
+    init=init.trim();
+    if (init.trim!==""){
+      //calculate the score
+      var score=correctAnswersCount;
+      console.log("Correct answers:" + correctAnswersCount);
+      if (remaining>0){
+        score = remaining * score ;
+        console.log("Score:" + score);
+      }
+      localStorage.setItem(init, score);
+    }
+  }
+  
+
 
   questionTextEl.textContent="Try to answer the following code related questions within the time limit. Keep in mind that an incorrect answer will decrease your remaining time by 5 seconds."
     
@@ -82,6 +106,7 @@ function startTest(){
     bTestInProgress=true;
     btn.textContent="Next";
     qIndex=0;
+    correctAnswersCount=0;
     ShowQuestion();
     setTime();
 
@@ -112,7 +137,7 @@ function processAnswer(){
     }
   }
   if (selectedText===questions[qIndex].answer){
-    alert("Correct!");
+    correctAnswersCount++;
     
   }
   else{alert("Wrong!");}
