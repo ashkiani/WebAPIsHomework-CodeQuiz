@@ -15,7 +15,7 @@ var questions = [
 var timeEl = document.querySelector(".navbar-brand");
 var questionDivEl=document.querySelector("#divQuestion");
 var questionTextEl=document.querySelector("#pQuestion");
-var answersDivEl=document.querySelector("#divCheckboxes");
+var answersDivEl=document.querySelector("#divChoices");
 var containerEl=document.querySelector(".container");
 var btn = document.querySelector(".btn");
 var timerPreText ="Timer: ";
@@ -32,26 +32,38 @@ function endTest(){
     secondsLeft=10;
     return;
 }
+/* <label><input type="radio" name="optradio">Option 2</label> */
+/* <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Option 1</label>
+                      </div> */
+
 
 function ShowQuestion(){
     if (qIndex<questions.length){
         var question=questions[qIndex];
         questionTextEl.textContent=question.title;
-        //create a list of check boxes
+        //create a list of choices
         for(var i=0;i< question.choices.length;i++){
-            var chkAnswer =document.createElement("div");
-            chkAnswer.setAttribute("id","form-check");
-            answersDivEl.appendChild(chkAnswer);
-            var inp =document.createElement("input");
-            inp.setAttribute("id","materialUnchecked");
-            inp.setAttribute("class","form-check-input");
-            inp.setAttribute("type","checkbox");
-            chkAnswer.appendChild(inp);
-            var lbl=document.createElement("label");
-            lbl.setAttribute("class","form-check-label");
-            lbl.setAttribute("for","materialUnchecked");
-            lbl.innerHTML=question.choices[i];
-            chkAnswer.appendChild(lbl);
+          var divRadio =document.createElement("div");
+          divRadio.setAttribute("class","radio");
+          var lblChoice = document.createElement("label");
+          lblChoice.innerHTML="<input type=\"radio\">" + question.choices[i];
+          divRadio.appendChild(lblChoice)
+          answersDivEl.appendChild(divRadio);
+          
+          // var chkAnswer =document.createElement("div");
+          //   chkAnswer.setAttribute("id","form-check");
+          //   answersDivEl.appendChild(chkAnswer);
+          //   var inp =document.createElement("input");
+          //   inp.setAttribute("id","materialUnchecked");
+          //   inp.setAttribute("class","form-check-input");
+          //   inp.setAttribute("type","checkbox");
+          //   chkAnswer.appendChild(inp);
+          //   var lbl=document.createElement("label");
+          //   lbl.setAttribute("class","form-check-label");
+          //   lbl.setAttribute("for","materialUnchecked");
+          //   lbl.innerHTML=question.choices[i];
+          //   chkAnswer.appendChild(lbl);
         }
       qIndex++;
     }
@@ -82,14 +94,14 @@ function setTime() {
 
 function processAnswer(){
   //read the selected value
-  var divEls = answersDivEl.children;
-  for(var i = 0; i < divEls.length; i++) {
-    if(divEls[i].matches('[type="checkbox"]')) {
-      questionDivEl.removeChild(divEls[i]);      
-    }  
+  // var divEls = answersDivEl.children;
+  // for(var i = 0; i < divEls.length; i++) {
+  //   if(divEls[i].matches('[type="checkbox"]')) {
+  //     questionDivEl.removeChild(divEls[i]);      
+  //   }  
+  // }
 }
-}
-function deleteExistingCheckboxes(){
+function deleteExistingChoices(){
   // Clear 
   answersDivEl.innerHTML = "";
 
@@ -99,7 +111,7 @@ function deleteExistingCheckboxes(){
 btn.addEventListener("click",function(event){
     if (bTestInProgress){
         processAnswer();
-        deleteExistingCheckboxes();
+        deleteExistingChoices();
     }
     else{
         startTest();
