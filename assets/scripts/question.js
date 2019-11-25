@@ -65,7 +65,7 @@ function ShowQuestion(){
           //   lbl.innerHTML=question.choices[i];
           //   chkAnswer.appendChild(lbl);
         }
-      qIndex++;
+      
     }
     else{
         endTest();
@@ -94,12 +94,22 @@ function setTime() {
 
 function processAnswer(){
   //read the selected value
-  // var divEls = answersDivEl.children;
-  // for(var i = 0; i < divEls.length; i++) {
-  //   if(divEls[i].matches('[type="checkbox"]')) {
-  //     questionDivEl.removeChild(divEls[i]);      
-  //   }  
-  // }
+  var selectedText="";
+  var divRadios=  answersDivEl.children;
+  for (var i = 0; i<divRadios.length; i++){
+    var lbl =divRadios[i].children[0];
+    var rb = lbl.children[0];
+    if (rb.checked){
+      selectedText=lbl.textContent;
+      break;
+    }
+  }
+  if (selectedText===questions[qIndex].answer){
+    alert("Correct!");
+    
+  }
+  else{alert("Wrong!");}
+  
 }
 function deleteExistingChoices(){
   // Clear 
@@ -112,6 +122,8 @@ btn.addEventListener("click",function(event){
     if (bTestInProgress){
         processAnswer();
         deleteExistingChoices();
+        qIndex++;
+        ShowQuestion();
     }
     else{
         startTest();
