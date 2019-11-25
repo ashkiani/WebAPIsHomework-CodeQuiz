@@ -10,6 +10,12 @@ var questions = [
       answer: "parentheses"
     },
     ///etc.
+    {
+      title: "What is the HTML tag under which one can write the JavaScript code?",
+      choices: ["javascript", "scripted", "script", "js"],
+      answer: "script"
+    }
+    
   ];
 
 var timeEl = document.querySelector(".navbar-brand");
@@ -21,22 +27,23 @@ var btn = document.querySelector(".btn");
 var timerPreText ="Timer: ";
 var bTestInProgress = false;
 var timerInterval;
-var secondsLeft = 10;
+var secondsLeft = 15;
 var qIndex =0;
 
 function endTest(){
-    clearInterval(timerInterval);
-    timeEl.textContent = "Time over!";
-    bTestInProgress=false;
-    btn.textContent="Start";
-    secondsLeft=10;
+  clearInterval(timerInterval);
+  timeEl.textContent = "Time over!";
+  bTestInProgress=false;
+  deleteExistingChoices();
+  btn.textContent="Start";
+  secondsLeft=15;
+
+  //ask user's name and record the score
+
+  questionTextEl.textContent="Try to answer the following code related questions within the time limit. Keep in mind that an incorrect answer will decrease your remaining time by 5 seconds."
+    
     return;
 }
-/* <label><input type="radio" name="optradio">Option 2</label> */
-/* <div class="radio">
-                        <label><input type="radio" name="optradio" checked>Option 1</label>
-                      </div> */
-
 
 function ShowQuestion(){
     if (qIndex<questions.length){
@@ -47,7 +54,7 @@ function ShowQuestion(){
           var divRadio =document.createElement("div");
           divRadio.setAttribute("class","radio");
           var lblChoice = document.createElement("label");
-          lblChoice.innerHTML="<input type=\"radio\">" + question.choices[i];
+          lblChoice.innerHTML="<input type=\"radio\" name=\"radioChoice\">" + question.choices[i];
           divRadio.appendChild(lblChoice)
           answersDivEl.appendChild(divRadio);
           
