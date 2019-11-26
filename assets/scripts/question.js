@@ -123,7 +123,7 @@ function setTime() {
       secondsLeft--;
       timeEl.textContent = timerPreText + secondsLeft + " seconds left.";
     }
-if (secondsLeft === 0) {
+    if (secondsLeft === 0) {
       endTest();
     }
 
@@ -162,19 +162,22 @@ function deleteExistingChoices() {
 
 }
 
+if (btn) {
+  btn.addEventListener("click", function (event) {
+    //event.preventDefault;
+    if (bTestInProgress) {
+      processAnswer();
+      deleteExistingChoices();
+      qIndex++;
+      ShowQuestion();
+    }
+    else {
+      startTest();
 
-btn.addEventListener("click", function (event) {
-  if (bTestInProgress) {
-    processAnswer();
-    deleteExistingChoices();
-    qIndex++;
-    ShowQuestion();
-  }
-  else {
-    startTest();
+    }
 
-  }
+  });
+}
 
-});
 
 
