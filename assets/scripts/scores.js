@@ -1,4 +1,23 @@
 var containerEl = document.querySelector(".container");
+var colClass = "col-md-4 text-center border bg-light";
+
+function compare(a, b) {
+    var result;
+    console.log("comparing:" + a.score + "," + b.score);
+    if (a.score > b.score) {
+        result = 1;
+    }
+    else if (a.score < b.score) {
+        result = -1;
+    }
+    else {
+        if (a.time < b.time) {
+            result = 1;
+        }
+        else { result = -1; }
+    }
+    return -1 * result;
+}
 
 function ShowScores() {
     containerEl.innerHTML = "";
@@ -9,19 +28,19 @@ function ShowScores() {
     var rowEl = document.createElement("div");
     rowEl.setAttribute("class", "row");
     var colEl = document.createElement("div");
-    colEl.setAttribute("class", "col-md-4 border bg-light");
+    colEl.setAttribute("class", colClass);
     colEl.innerHTML = "Initial";
     rowEl.appendChild(colEl);
     colEl = document.createElement("div");
-    colEl.setAttribute("class", "col-md-4 border bg-light");
-    colEl.innerHTML = "Score";
+    colEl.setAttribute("class", colClass);
+    colEl.innerHTML = "Correct Answers";
     rowEl.appendChild(colEl);
     colEl = document.createElement("div");
-    colEl.setAttribute("class", "col-md-4 border bg-light");
+    colEl.setAttribute("class", colClass);
     colEl.innerHTML = "Time";
     rowEl.appendChild(colEl);
     containerEl.appendChild(rowEl);
-
+    var results = [];
     for (var i = 0; i < localStorage.length; i++) {
         // set iteration key name
         var key = localStorage.key(i);
@@ -29,26 +48,49 @@ function ShowScores() {
         if (key !== null) {
             // use key name to retrieve the corresponding value
             var value = localStorage.getItem(key);
-            // console.log the iteration key and value
             console.log('Key: ' + key + ', Value: ' + value);
-            var result = JSON.parse(value);
+            var scrTime = JSON.parse(value);
+            var score=  scrTime.score;     
+            var time = scrTime.time;
+            console.log(score);
+            console.log(time);
+            var result = { "init": key, "score": score, "time": time }
+            console.log(result);
+            results.push(result);
+              }
+    }
+
+    if (results.length > 0) {
+        console.log(results);
+        results.sort(compare);
+        console.log(results);
+        
+        results.forEach(function (r){
+
             rowEl = document.createElement("div");
             rowEl.setAttribute("class", "row");
             colEl = document.createElement("div");
-            colEl.setAttribute("class", "col-md-4 border bg-light");
-            colEl.innerHTML = key;
+            colEl.setAttribute("class", colClass);
+            colEl.innerHTML = r.init;
             rowEl.appendChild(colEl);
             colEl = document.createElement("div");
-            colEl.setAttribute("class", "col-md-4 border bg-light");
-            colEl.innerHTML = result.score;
+            colEl.setAttribute("class", colClass);
+            colEl.innerHTML = r.score;
             rowEl.appendChild(colEl);
             colEl = document.createElement("div");
-            colEl.setAttribute("class", "col-md-4 border bg-light");
-            colEl.innerHTML = result.time;
+            colEl.setAttribute("class", colClass);
+            colEl.innerHTML = r.time;
             rowEl.appendChild(colEl);
             containerEl.appendChild(rowEl);
-        }
+
+        });
+      
+
     }
 }
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", ShowScores);
