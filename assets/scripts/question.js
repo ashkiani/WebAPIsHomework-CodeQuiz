@@ -69,7 +69,7 @@ function endTest() {
     init = init.trim();
     if (init.trim !== "") {
       //calculate the score
-      var result = { "score": correctAnswersCount, "time": (quizTime - remaining) };
+      var result = {"score": correctAnswersCount, "time": (quizTime - remaining) };
 
       localStorage.setItem(init, JSON.stringify(result));
     }
@@ -178,6 +178,7 @@ if (btn) {
 
   });
 }
+
 
 
 
