@@ -52,13 +52,9 @@ function endTest(){
     init=init.trim();
     if (init.trim!==""){
       //calculate the score
-      var score=correctAnswersCount;
-      console.log("Correct answers:" + correctAnswersCount);
-      if (remaining>0){
-        score = remaining * score ;
-        console.log("Score:" + score);
-      }
-      localStorage.setItem(init, score);
+      var result = {"score":correctAnswersCount,"time": (quizTime - remaining)};
+      
+      localStorage.setItem(init,JSON.stringify(result));
     }
   }
   
