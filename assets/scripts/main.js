@@ -9,7 +9,7 @@ var btn = document.querySelector(".btn");
 var timerPreText = "Timer: ";
 var bTestInProgress = false;
 var timerInterval;
-const quizTime = 15;
+const quizTime = 50;
 var secondsLeft = quizTime;
 
 var qIndex = 0;
