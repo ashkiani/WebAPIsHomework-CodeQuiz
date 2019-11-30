@@ -4,7 +4,8 @@ var questionTextEl = document.querySelector("#pQuestion");
 var answersDivEl = document.querySelector("#divChoices");
 var containerEl = document.querySelector(".container");
 var viewHSLinkEl = document.querySelector("#viewHSLink");
-var HomeLinkEl = document.querySelector("#homeLink");
+var homeLinkEl = document.querySelector("#homeLink");
+var lastResultEl = document.querySelector("#lastResult");
 var btn = document.querySelector(".btn");
 var timerPreText = "Timer: ";
 var bTestInProgress = false;
@@ -25,7 +26,7 @@ function configurePage(IsTestInProgress) {
   bTestInProgress = IsTestInProgress;
   if (IsTestInProgress) {
     viewHSLinkEl.setAttribute("href", "javascript: void(0)");
-    HomeLinkEl.setAttribute("href", "javascript: void(0)");
+    homeLinkEl.setAttribute("href", "javascript: void(0)");
     btn.textContent = "Next";
     qIndex = 0;
     correctAnswersCount = 0;
@@ -36,7 +37,7 @@ function configurePage(IsTestInProgress) {
     //btn.textContent = "Start";
     resetTime();
     viewHSLinkEl.setAttribute("href", "index.html");
-    HomeLinkEl.setAttribute("href", "scores.html");
+    homeLinkEl.setAttribute("href", "scores.html");
   }
 }
 
@@ -55,7 +56,8 @@ function endTest() {
   input.type = "text";
   input.setAttribute("id", "init");
   answersDivEl.appendChild(input);
-
+  lastResultEl.style.backgroundColor = "white";
+  lastResultEl.innerHTML = ""
 }
 
 function ShowQuestion() {
@@ -111,9 +113,12 @@ function processAnswer() {
   }
   if (selectedText === questions[qIndex].answer) {
     correctAnswersCount++;
-
+    lastResultEl.style.backgroundColor = "green";
+    lastResultEl.innerHTML = "Previous Answer: Correct!"
   }
   else {
+    lastResultEl.style.backgroundColor = "red";
+    lastResultEl.innerHTML = "Previous Answer: Incorrect!"
     if (secondsLeft < 5) {
       secondsLeft = 0;
     }
