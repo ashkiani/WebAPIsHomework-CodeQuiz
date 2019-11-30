@@ -1,7 +1,7 @@
 h1,p,footer{
     text-align: center;
 }
-footer{
+footer, .fixed-bottom{
     background-color: teal;
     color: white;
 }
