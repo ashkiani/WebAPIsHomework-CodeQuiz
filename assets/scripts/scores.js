@@ -1,4 +1,5 @@
 var containerEl = document.querySelector(".container");
+var btnEl = document.querySelector("#btn");
 var colClass = "col-md-4 text-center border bg-light";
 
 function compare(a, b) {
@@ -89,8 +90,9 @@ function ShowScores() {
     }
 }
 
-
-
-
+function Restart(){
+    document.location.href = "index.html";
+}
 
 document.addEventListener("DOMContentLoaded", ShowScores);
+btnEl.addEventListener("click", Restart);
