@@ -28,11 +28,11 @@ Please email us for further questions at ashkiani@yahoo.com
 ​
 ## Technologies Used
 ​
-HTML
+* HTML
 ​
-CSS
+* CSS
 ​
-Javascript
+* Javascript
 ​
 ## Contribution Guidlines 
 ​
