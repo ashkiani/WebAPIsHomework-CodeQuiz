@@ -14,6 +14,8 @@ var timerInterval;
 const quizTime = 50;
 var secondsLeft = quizTime;
 var result;
+var sndCorrect = new Audio("./assets/sounds/Correct.wav"); 
+var sndWrong = new Audio("./assets/sounds/Wrong.wav"); 
 
 var qIndex = 0;
 var correctAnswersCount = 0;
@@ -112,11 +114,13 @@ function processAnswer() {
     }
   }
   if (selectedText === questions[qIndex].answer) {
+    sndCorrect.play();
     correctAnswersCount++;
     lastResultEl.style.backgroundColor = "green";
     lastResultEl.innerHTML = "Previous Answer: Correct!"
   }
   else {
+    sndWrong.play();
     lastResultEl.style.backgroundColor = "red";
     lastResultEl.innerHTML = "Previous Answer: Incorrect!"
     if (secondsLeft < 5) {
